@@ -2,9 +2,9 @@
 
 __author__ = "Trude Haug Almestrand", "Nina Mariann Vesseltun"
 __email__ = "trude.haug.almestrand@nmbu.no", "nive@nmbu.no"
-import .animals as ani
-import .landscapes as land
-import .simulation as sim
+import src.biosim.animals as ani
+import src.biosim.landscapes as land
+import src.biosim.simulation as sim
 import pytest
 import random
 

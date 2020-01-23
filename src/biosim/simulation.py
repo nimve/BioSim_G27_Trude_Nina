@@ -10,9 +10,9 @@ and carnivores. Landscape types consist of savannah, jungle, desert and
 mountain, with surrounding ocean.
 """
 
-from .animals import Herbivore, Carnivore
-from .landscapes import Savannah, Jungle, Desert, Mountain, Ocean
-from .visualization import Visualization as Vis
+from src.biosim.animals import Herbivore, Carnivore
+from src.biosim.landscapes import Savannah, Jungle, Desert, Mountain, Ocean
+from src.biosim.visualization import Visualization as Vis
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -280,4 +280,4 @@ class BioSim:
             self.sim_years += 1
             self.Vis.update_graphics()
             self.Vis._save_graphics()
-        self.Vis.make_movie()
+        #self.Vis.make_movie()

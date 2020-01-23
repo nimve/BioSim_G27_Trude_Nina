@@ -2,9 +2,9 @@
 
 __author__ = "Trude Haug Almestrand", "Nina Mariann Vesseltun"
 __email__ = "trude.haug.almestrand@nmbu.no", "nive@nmbu.no"
-import .animals as ani
-import .landscapes as land
-import .simulation as sim
+import src.biosim.animals as ani
+import src.biosim.landscapes as land
+import src.biosim.simulation as sim
 import pytest
 import random
 
@@ -39,6 +39,9 @@ def example_jungle():
     yield land.Jungle()
     land.Jungle.params = params
 
+@pytest.fixture
+def example_herbivore():
+    yield ani.Herbivore
 
 @pytest.fixture
 def example_map():
@@ -88,3 +91,5 @@ class TestDesert(BaseTestLandscapes):
 
 class TestMountain():
     pass
+
+

@@ -3,7 +3,7 @@
 __author__ = "Trude Haug Almestrand", "Nina Mariann Vesseltun"
 __email__ = "trude.haug.almestrand@nmbu.no", "nive@nmbu.no"
 
-from .animals import Herbivore, Carnivore
+from src.biosim.animals import Herbivore, Carnivore
 
 class LandscapeCell:
     """Create landscape cells that can be replensihed and with a population of
@@ -39,7 +39,8 @@ class LandscapeCell:
         """
         for species in self.population:
             for animal in self.population[species]:
-                animal.migrate(self, neighbours)
+                if animal.movable():
+                    animal.migrate(self, neighbours)
 
     def place_animals(self, placement_list):
         """
