@@ -3,7 +3,7 @@
 __author__ = "Trude Haug Almestrand", "Nina Mariann Vesseltun"
 __email__ = "trude.haug.almestrand@nmbu.no", "nive@nmbu.no"
 
-from .animals import Herbivore, Carnivore
+from src.biosim.animals import Herbivore, Carnivore
 
 class LandscapeCell:
     """Create landscape cells that can be replensihed and with a population of
@@ -16,6 +16,19 @@ class LandscapeCell:
         self.population = {'Herbivore': [], 'Carnivore': []}
         self.propensity = 0
         self.likelihood = 0
+
+    @classmethod
+    def set_params(cls, new_params=None):
+        if new_params is not None:
+            for param in new_params:
+                if param not in cls.params:
+                    raise ValueError
+                if param == 'f_max' and new_params[param] < 0:
+                    raise ValueError
+            cls.params.update(new_params)
+        for param in cls.params:
+            setattr(cls, param, cls.params[param])
+        cls.params_set = True
 
     def num_specimen(self, species):
         """Get the number of individuals of a species in the population of
@@ -39,7 +52,8 @@ class LandscapeCell:
         """
         for species in self.population:
             for animal in self.population[species]:
-                animal.migrate(self, neighbours)
+                if animal.movable():
+                    animal.migrate(self, neighbours)
 
     def place_animals(self, placement_list):
         """
@@ -108,18 +122,6 @@ class Savannah(LandscapeCell):
 
         self.f = self.f_max
 
-    @classmethod
-    def set_params(cls, new_params=None):
-        if new_params is not None:
-            for param in new_params:
-                if param not in cls.params:
-                    raise ValueError
-                if param == 'f_max' and new_params[param] < 0:
-                    raise ValueError
-            cls.params.update(new_params)
-        for param in cls.params:
-            setattr(cls, param, cls.params[param])
-        cls.params_set = True
 
     def replenish(self):
         """Replenish plant fodder at the start of every season. """
@@ -138,19 +140,6 @@ class Jungle(LandscapeCell):
             self.set_params()
 
         self.f = self.f_max
-
-    @classmethod
-    def set_params(cls, new_params=None):
-        if new_params is not None:
-            for param in new_params:
-                if param not in cls.params:
-                    raise ValueError
-                if param == 'f_max' and new_params[param] < 0:
-                    raise ValueError
-            cls.params.update(new_params)
-        for param in cls.params:
-            setattr(cls, param, cls.params[param])
-        cls.params_set = True
 
     def replenish(self):
         """Replenish plant fodder at the start of every season. """

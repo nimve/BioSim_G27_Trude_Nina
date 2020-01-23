@@ -198,7 +198,7 @@ class Animal:
         :return: Boolean value, True representing fertile and False
         representing infertile.
         """
-        probability = self.lambdah * self.phi * (n-1)
+        probability = self.gamma * self.phi * (n-1)
         if probability > 1.0:
             probability = 1.0
         if np.random.random() <= probability:
